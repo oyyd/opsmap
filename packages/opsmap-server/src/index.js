@@ -1,16 +1,31 @@
 // @flow
+import 'babel-polyfill'
 import Koa from 'koa'
+import router from './router'
+import createService from './service'
+import createController from './controller'
+
+const PORT = 8000
 
 export default function create() {
   const app = new Koa()
 
-  app.use((ctx) => {
-    ctx.body = 'Hello'
-  })
+  return createService().then((service) => {
+    app.service = service
 
-  app.listen(8000)
+    return createController()
+  })
+  .then(controller => (app.controller = controller))
+  .then(() => {
+    router(app)
+
+    app.listen(PORT, () => {
+      // eslint-disable-next-line
+      console.log(`listening on ${PORT}`)
+    })
+  })
 }
 
 if (require.main === module) {
-  create()
+  create().catch(console.error) // eslint-disable-line
 }
