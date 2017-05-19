@@ -1,8 +1,10 @@
 // @flow
 import db from './db'
+import scene from './scene'
 
 export const list = {
   db,
+  scene,
 }
 
 export default async function createService() {

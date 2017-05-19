@@ -1,9 +1,20 @@
 // @flow
 import { Long } from 'mongodb'
+import { promisify } from '../utils'
 
 const NAME = 'records'
 
-function createID() {
+export type UserAgentInfoType = {
+  id: string,
+  browser: {
+    name: string,
+    major: string,
+  },
+  os: string,
+  ip: string,
+}
+
+function getTimestamp() {
   const date = new Date()
 
   date.setMinutes(0)
@@ -13,24 +24,23 @@ function createID() {
   return Long.fromNumber(date.valueOf())
 }
 
-function create(client, value) {
-  const timestamp = createID()
+function create(client, userAgentInfo: UserAgentInfoType) {
+  const timestamp = getTimestamp()
 
   const col = client.collection(NAME)
 
-  return new Promise((resolve, reject) => {
-    col.insert({
-      timestamp,
-      value,
-    }, (err, result) => {
-      if (err) {
-        reject(err)
-        return
-      }
+  // TODO: need a better solution
+  return promisify(col, 'insert', Object.assign({}, userAgentInfo, {
+    timestamp,
+  }))
+}
 
-      resolve(result)
-    })
-  })
+function getVisit(client) {
+  const col = client.collection(NAME)
+
+  const cursor = col.find()
+
+  return promisify(cursor, 'toArray')
 }
 
 export default function createDao(options: { client: any }) {
@@ -38,5 +48,6 @@ export default function createDao(options: { client: any }) {
 
   return {
     create: create.bind(null, client),
+    getVisit: getVisit.bind(null, client),
   }
 }

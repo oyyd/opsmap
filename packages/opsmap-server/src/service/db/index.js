@@ -2,7 +2,10 @@
 import { MongoClient } from 'mongodb'
 import scene from './scene'
 
-const CONNECT_URL = 'mongodb://localhost:27017/opsmap'
+const IP = 'localhost'
+const PORT = '27017'
+const DBNAME = 'opsmap'
+const CONNECT_URL = `mongodb://${IP}:${PORT}/${DBNAME}`
 
 const list = {
   scene,

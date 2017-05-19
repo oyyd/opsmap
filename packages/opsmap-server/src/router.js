@@ -14,6 +14,7 @@ export default function route(app: any) {
   })
 
   router.get('/visit', controller.visit)
+  router.get('/get_visit', controller.getVisit)
 
   app.use(router.routes())
     .use(router.allowedMethods())
