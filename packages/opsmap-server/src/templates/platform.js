@@ -4,7 +4,7 @@ export default function () {
     <html>
       <head>
         <title>opsmap</title>
-        <link rel="stylesheet" href="/static/opsmap-web/semantic-ui-css/semantic.min.css" />
+        <link rel="stylesheet" href="/static/opsmap-web/semantic.min.css" />
       </head>
       <body>
         <div id="main"></div>

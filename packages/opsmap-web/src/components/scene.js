@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
-import Menu from './menu'
 
-class App extends Component {
+class Scene extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-
-    }
   }
 
   render() {
     return (
       <div>
-        <Menu />
+        Scene
       </div>
     )
   }
 }
 
-export default App
+export default Scene
