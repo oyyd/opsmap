@@ -21,7 +21,7 @@ class AppMenu extends Component {
     super(props)
 
     this.state = {
-      activeItem: 'BasicInfo',
+      activeItem: 'Scene',
     }
   }
 

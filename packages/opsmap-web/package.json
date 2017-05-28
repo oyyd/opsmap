@@ -7,7 +7,7 @@
     "cpasset": "cp -rf ./node_modules/semantic-ui-css build",
     "build": "npm run cpasset && webpack --config webpack.prod.js",
     "build:dev": "npm run cpasset && webpack --config webpack.dev.js",
-    "dev": "npm run cpasset && webpack --config webpack.dev.js -w"
+    "dev": "rm -rf build && npm run cpasset && webpack --config webpack.dev.js -w"
   },
   "author": "oyyd <oyydoibh@gmail.com>",
   "license": "MIT",
