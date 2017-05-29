@@ -18,7 +18,7 @@ module.exports = {
   output: {
     path: relative('./build'),
     filename: '[name].bundle.js',
-    publicPath: '/build',
+    publicPath: '/build/',
   },
   module: {
     rules: [{
@@ -43,13 +43,13 @@ module.exports = {
     }],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([{
       from: 'ead./node_modules/semantic-ui-css/**/*',
       to: '/',
     }]),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
   devServer: {
     host: 'localhost',

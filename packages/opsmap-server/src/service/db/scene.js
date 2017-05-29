@@ -1,46 +1,29 @@
 // @flow
-import { Long } from 'mongodb'
+import uuidV1 from 'uuid/v1'
 import { promisify } from '../utils'
 
-const NAME = 'records'
+const NAME = 'scene'
 
-export type UserAgentInfoType = {
-  id: string,
-  browser: {
-    name: string,
-    major: string,
-  },
-  os: string,
-  ip: string,
-}
+export type SceneCreationType = {
+  sceneId: string,
+  title: string,
+};
 
-function getTimestamp() {
-  const date = new Date()
-
-  date.setMinutes(0)
-  date.setSeconds(0)
-  date.setMilliseconds(0)
-
-  return Long.fromNumber(date.valueOf())
-}
-
-function create(client, userAgentInfo: UserAgentInfoType) {
-  const timestamp = getTimestamp()
-
+async function create(client, title = '') {
   const col = client.collection(NAME)
+  const sceneId = uuidV1()
 
-  // TODO: need a better solution
-  return promisify(col, 'insert', Object.assign({}, userAgentInfo, {
-    timestamp,
-  }))
-}
+  const filter = {
+    sceneId,
+  }
+  const update = {
+    $setOnInsert: {
+      sceneId,
+      title,
+    },
+  }
 
-function getVisit(client) {
-  const col = client.collection(NAME)
-
-  const cursor = col.find()
-
-  return promisify(cursor, 'toArray')
+  return promisify(col, 'updateOne', filter, update, { upsert: true })
 }
 
 export default function createDao(options: { client: any }) {
@@ -48,6 +31,5 @@ export default function createDao(options: { client: any }) {
 
   return {
     create: create.bind(null, client),
-    getVisit: getVisit.bind(null, client),
   }
 }

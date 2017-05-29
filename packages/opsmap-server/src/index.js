@@ -1,6 +1,7 @@
 // @flow
 import 'babel-polyfill'
 import Koa from 'koa'
+import koaBody from 'koa-body'
 import router from './router'
 import createService from './service'
 import createController from './controller'
@@ -20,6 +21,8 @@ export default function create(config: any = createConfig()) {
   })
   .then(controller => (app.controller = controller))
   .then(() => {
+    app.use(koaBody())
+
     router(app)
 
     app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 // @flow
 import parse from 'ua-parser-js'
 import crypto from 'crypto'
-import type { UserAgentInfoType } from '../db/scene'
+import type { UserAgentInfoType } from '../db/visit'
 
 function createUserID(ip, ua) {
   const hash = crypto.createHmac('sha1', 'opsmap')
@@ -12,7 +12,7 @@ function createUserID(ip, ua) {
 }
 
 async function visit(ctx, ip, userAgent) {
-  const { create } = ctx.app.service.db.scene
+  const { create } = ctx.app.service.db.visit
   const ua = parse(userAgent)
   const id = createUserID(ip, userAgent)
 
@@ -29,7 +29,7 @@ async function visit(ctx, ip, userAgent) {
   return create(userAgentInfo)
 }
 
-export default async function createSceneService() {
+export default async function createVisitService() {
   return {
     visit,
   }

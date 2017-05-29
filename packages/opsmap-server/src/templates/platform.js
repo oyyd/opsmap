@@ -1,4 +1,5 @@
-export default function (config) {
+// @flow
+export default function (config: any) {
   return `
     <!DOCTYPE html>
     <html>

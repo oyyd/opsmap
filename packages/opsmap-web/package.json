@@ -40,6 +40,7 @@
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.68.3",
     "style-loader": "^0.17.0",
+    "url-parse": "^1.1.9",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5",
     "whatwg-fetch": "^2.0.3"
@@ -65,12 +66,18 @@
       "flowtype-errors/show-errors": 2,
       "react/jsx-filename-extension": 0,
       "react/prefer-stateless-function": 0,
-      "import/no-extraneous-dependencies": 0
+      "import/no-extraneous-dependencies": 0,
+      "jsx-a11y/label-has-for": 0
     }
   },
   "babel": {
     "presets": [
-      "es2015",
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ],
       "react",
       "flow"
     ],

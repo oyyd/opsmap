@@ -18,11 +18,13 @@
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "koa": "^2.2.0",
+    "koa-body": "^2.0.1",
     "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
     "mongodb": "^2.2.26",
     "opsmap-web": "^1.0.0",
     "ua-parser-js": "^0.7.12",
+    "uuid": "^3.0.1",
     "yargs": "^8.0.1"
   },
   "devDependencies": {

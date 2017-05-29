@@ -1,9 +1,11 @@
 // @flow
 import db from './db'
+import visit from './visit'
 import scene from './scene'
 
 export const list = {
   db,
+  visit,
   scene,
 }
 

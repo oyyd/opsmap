@@ -1,6 +1,7 @@
 // @flow
 import { MongoClient } from 'mongodb'
 import scene from './scene'
+import visit from './visit'
 
 const IP = 'localhost'
 const PORT = '27017'
@@ -9,6 +10,7 @@ const CONNECT_URL = `mongodb://${IP}:${PORT}/${DBNAME}`
 
 const list = {
   scene,
+  visit,
 }
 
 function createClient() {
