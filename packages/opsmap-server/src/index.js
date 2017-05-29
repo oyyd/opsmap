@@ -4,11 +4,14 @@ import Koa from 'koa'
 import router from './router'
 import createService from './service'
 import createController from './controller'
+import { createConfig } from './config'
 
 const PORT = 8000
 
-export default function create() {
+export default function create(config: any = createConfig()) {
   const app = new Koa()
+
+  app.config = config
 
   return createService().then((service) => {
     app.service = service

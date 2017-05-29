@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node lib/index.js",
+    "start": "node lib/cli/index.js",
+    "start:dev": "node lib/cli/index.js --web-static-prefix '//localhost:3000/build'",
     "build": "rm -rf lib && babel src --out-dir lib",
     "build:watch": "rm -rf lib && babel src -w --out-dir lib",
     "dev": "node scripts/dev.js",
@@ -21,7 +22,8 @@
     "koa-static": "^3.0.0",
     "mongodb": "^2.2.26",
     "opsmap-web": "^1.0.0",
-    "ua-parser-js": "^0.7.12"
+    "ua-parser-js": "^0.7.12",
+    "yargs": "^8.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

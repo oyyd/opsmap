@@ -3,6 +3,7 @@ import { Grid, Menu } from 'semantic-ui-react'
 import Create from './create'
 import Edit from './edit'
 import List from './list'
+import MenuItem from '../menu/item'
 
 const { Column } = Grid
 
@@ -39,15 +40,16 @@ class Scene extends Component {
         <Column width={3}>
           <Menu fluid vertical tabular>
             {Object.keys(regions).map(name => (
-              <Menu.Item
+              <MenuItem
+                key={name}
                 name={name}
-                active={activeItem === name}
+                activeItem={activeItem}
                 onClick={() => changeItem(name)}
               />
             ))}
           </Menu>
         </Column>
-        <Column width={12}>
+        <Column width={13}>
           <Comp />
         </Column>
       </Grid>

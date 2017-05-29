@@ -7,6 +7,7 @@ const relative = p => path.resolve(__dirname, p)
 
 const WAIT_TIME_FOR_CHANGE = 300
 const MAX_RETRY_TIMES = 2
+const START_SCRIPT = 'npm run start:dev'
 
 function onReady(watcher) {
   return new Promise((resolve) => {
@@ -37,7 +38,7 @@ function restart(ctx) {
     child.kill()
   }
 
-  const nextChild = childProcess.exec('npm run start', (error) => {
+  const nextChild = childProcess.exec(START_SCRIPT, (error) => {
     if (!error) {
       return
     }

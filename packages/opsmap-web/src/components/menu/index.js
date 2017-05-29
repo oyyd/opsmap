@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
-import BasicInfo from './basic_info'
-import Scene from './scene'
-
-const { Item } = Menu
+import BasicInfo from '../basic_info'
+import Scene from '../scene'
+import Item from './item'
 
 const MENUS = {
   BasicInfo,
@@ -39,7 +38,7 @@ class AppMenu extends Component {
             <Item
               key={name}
               name={name}
-              active={activeItem === name}
+              activeItem={activeItem}
               onClick={() => this.setState({ activeItem: name })}
             >
               {name}

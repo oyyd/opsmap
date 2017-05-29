@@ -1,14 +1,24 @@
 const path = require('path')
+const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const relative = p => path.resolve(__dirname, p)
 
 module.exports = {
+  devtool: 'inline-source-map',
   entry: {
-    index: ['whatwg-fetch', relative('./src/index.js')],
+    index: [
+      'whatwg-fetch',
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      relative('./src/index.js'),
+    ],
   },
   output: {
     path: relative('./build'),
     filename: '[name].bundle.js',
+    publicPath: '/build',
   },
   module: {
     rules: [{
@@ -32,5 +42,22 @@ module.exports = {
       }],
     }],
   },
-  devtool: 'source-map',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new CopyWebpackPlugin([{
+      from: 'ead./node_modules/semantic-ui-css/**/*',
+      to: '/',
+    }]),
+  ],
+  devServer: {
+    host: 'localhost',
+    port: 3000,
+    historyApiFallback: true,
+    hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+  },
 }
