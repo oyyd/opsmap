@@ -5,9 +5,11 @@ const childProcess = require('child_process')
 
 const relative = p => path.resolve(__dirname, p)
 
+const FIRST_CHECK_TIME = 1000
 const WAIT_TIME_FOR_CHANGE = 300
 const MAX_RETRY_TIMES = 2
 const START_SCRIPT = 'npm run start:dev'
+const BUILD_SCRIPT = 'npm run build:watch'
 
 function onReady(watcher) {
   return new Promise((resolve) => {
@@ -26,8 +28,8 @@ function timer() {
 }
 
 function onAllEvent(watcher, next) {
-  watcher.on('all', (event, p) => {
-    next(event, p)
+  watcher.on('all', (/* event, p */) => {
+    next()
   })
 }
 
@@ -69,7 +71,7 @@ function restart(ctx) {
   return nextChild
 }
 
-function onFileChange(ctx/* , event, p*/) {
+function onFileChange(ctx) {
   const tick = Date.now()
   ctx.tick = tick
 
@@ -82,15 +84,42 @@ function onFileChange(ctx/* , event, p*/) {
   })
 }
 
+function build() {
+  const child = childProcess.exec(BUILD_SCRIPT)
+
+  child.stdout.pipe(process.stdin, {
+    // NOTE: do not end the writer(process.stdin) when
+    // the reader(child.stdout) ends
+    end: false,
+  })
+
+  child.stderr.pipe(process.stderr, {
+    end: false,
+  })
+
+  child.on('close', () => {
+    child.stdout.unpipe(process.stdin)
+    child.stderr.unpipe(process.stderr)
+  })
+
+  return child
+}
+
 function watch() {
   const ctx = {}
   const watcher = chokidar.watch(relative('../lib'))
-  const onAll = onAllEvent.bind(null, watcher, onFileChange.bind(null, ctx))
+  const start = onFileChange.bind(null, ctx)
+  const onAll = onAllEvent.bind(null, watcher, start)
 
-  onReady(watcher).then(() => {
-    ctx.child = restart(ctx)
-    onAll()
-  })
+  build()
+
+  setTimeout(() => {
+    start()
+
+    onReady(watcher).then(() => {
+      onAll()
+    })
+  }, FIRST_CHECK_TIME)
 }
 
 if (require.main === module) {

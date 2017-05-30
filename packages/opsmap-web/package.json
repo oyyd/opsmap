@@ -33,6 +33,7 @@
     "flow-bin": "^0.45.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
+    "promise-defer": "^1.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

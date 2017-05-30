@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import TitleRegion from '../title_region'
 import { post } from '../../request'
+import { getInstance } from '../utils'
 
 const { Field } = Form
 
@@ -23,10 +24,12 @@ class Create extends Component {
 
     post('/scene', {
       title,
-    }).then(success => {
-
-    }).catch(err => {
-
+    }).then(() => {
+      console.log('success')
+      getInstance('modal').then(modal => modal.open('success'))
+    }).catch((err) => {
+      console.log('fail')
+      getInstance('modal').then(modal => modal.open(`creation failed: ${err.message}`))
     })
   }
 
