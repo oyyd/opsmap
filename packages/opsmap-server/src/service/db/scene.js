@@ -26,10 +26,19 @@ async function create(client, title = '') {
   return promisify(col, 'updateOne', filter, update, { upsert: true })
 }
 
+async function get(client, query = {}) {
+  const col = client.collection(NAME)
+
+  const cursor = col.find(query)
+
+  return promisify(cursor, 'toArray')
+}
+
 export default function createDao(options: { client: any }) {
   const { client } = options
 
   return {
     create: create.bind(null, client),
+    get: get.bind(null, client),
   }
 }

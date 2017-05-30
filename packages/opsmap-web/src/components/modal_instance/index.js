@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
+import { Button, Header, Modal } from 'semantic-ui-react'
 
 class ModalExampleCloseIcon extends Component {
   constructor(props) {
@@ -21,10 +21,13 @@ class ModalExampleCloseIcon extends Component {
   render() {
     const { open, content } = this.state
 
+    const close = () => this.setState({ open: false })
+
     return (
       <Modal
         closeIcon="close"
         open={open}
+        onClose={close}
       >
         <Header icon="archive" content="Archive Old Messages" />
         <Modal.Content>
@@ -33,11 +36,11 @@ class ModalExampleCloseIcon extends Component {
           </p>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="red">
-            <Icon name="remove" /> No
-          </Button>
-          <Button color="green">
-            <Icon name="checkmark" /> Yes
+          <Button
+            primary
+            onClick={close}
+          >
+            I know
           </Button>
         </Modal.Actions>
       </Modal>

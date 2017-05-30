@@ -2,22 +2,15 @@ const path = require('path')
 // eslint-disable-next-line
 const chokidar = require('chokidar')
 const childProcess = require('child_process')
+const packageJSON = require('../package.json')
 
 const relative = p => path.resolve(__dirname, p)
 
 const FIRST_CHECK_TIME = 1000
 const WAIT_TIME_FOR_CHANGE = 300
 const MAX_RETRY_TIMES = 2
-const START_SCRIPT = 'npm run start:dev'
-const BUILD_SCRIPT = 'npm run build:watch'
-
-function onReady(watcher) {
-  return new Promise((resolve) => {
-    watcher.on('ready', () => {
-      resolve()
-    })
-  })
-}
+const START_SCRIPT = packageJSON.scripts['start:dev']
+const BUILD_SCRIPT = packageJSON.scripts['build:watch']
 
 function timer() {
   return new Promise((resolve) => {
@@ -116,9 +109,7 @@ function watch() {
   setTimeout(() => {
     start()
 
-    onReady(watcher).then(() => {
-      onAll()
-    })
+    onAll()
   }, FIRST_CHECK_TIME)
 }
 

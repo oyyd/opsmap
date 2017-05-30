@@ -13,3 +13,7 @@ export function initInstances(refers) {
 export function getInstance(name) {
   return instanceInitPromise.then(() => instances[name])
 }
+
+export function notify(content) {
+  getInstance('modal').then(modal => modal.open(content))
+}

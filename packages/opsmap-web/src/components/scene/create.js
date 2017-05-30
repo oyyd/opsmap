@@ -25,10 +25,8 @@ class Create extends Component {
     post('/scene', {
       title,
     }).then(() => {
-      console.log('success')
       getInstance('modal').then(modal => modal.open('success'))
     }).catch((err) => {
-      console.log('fail')
       getInstance('modal').then(modal => modal.open(`creation failed: ${err.message}`))
     })
   }
