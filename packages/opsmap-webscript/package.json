@@ -1,0 +1,69 @@
+{
+  "name": "opsmap-webscript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -w --config ./webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "author": "oyyd <oyydoibh@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "domready": "^1.0.8",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-flowtype": "^2.32.1",
+    "eslint-plugin-flowtype-errors": "^3.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "flow-bin": "^0.45.0",
+    "url-parse": "^1.1.9",
+    "webpack": "^2.5.1",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb",
+      "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+      "flowtype-errors",
+      "flowtype"
+    ],
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "semi": [
+        2,
+        "never"
+      ],
+      "flowtype-errors/show-errors": 2,
+      "react/jsx-filename-extension": 0,
+      "react/prefer-stateless-function": 0,
+      "import/no-extraneous-dependencies": 0,
+      "jsx-a11y/label-has-for": 0
+    }
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "flow"
+    ],
+    "plugins": [
+      "transform-async-to-generator"
+    ]
+  }
+}
