@@ -1,9 +1,25 @@
 // @flow
 import domready from 'domready'
-import { visit } from './visit'
+import visit from './visit'
 
 function getConfig() {
-  const scenes = []
+  let scenes = null
+
+  const metaTags = document.getElementByTags('meta')
+
+  metaTags.forEach((metaTag) => {
+    const name = metaTag.getAttribute('name')
+
+    if (name !== 'opsmap-scenes') {
+      return
+    }
+
+    const content = metaTag.getAttribute('content')
+
+    if (content) {
+      scenes = content.split(',')
+    }
+  })
 
   return {
     scenes,
