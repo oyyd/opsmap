@@ -4,8 +4,7 @@ describe('visit', () => {
   describe('getURL', () => {
     it('should compose url from the config and data', () => {
       const config = {
-        hostname: 'opsmap.org',
-        port: 8080,
+        host: 'opsmap.org:8080',
       }
 
       const data = {
@@ -14,14 +13,12 @@ describe('visit', () => {
       }
 
       const url = getURL(config, data)
-
-      expect(url).toBe('//opsmap.org:8080?a=10&b=abc')
+      expect(url).toBe('//opsmap.org:8080/visit?a=10&b=abc')
     })
 
     it('should support array in the data', () => {
       const config = {
-        hostname: 'opsmap.org',
-        port: 8080,
+        host: 'opsmap.org:8080',
       }
 
       const data = {
@@ -30,8 +27,7 @@ describe('visit', () => {
       }
 
       const url = getURL(config, data)
-
-      expect(url).toBe('//opsmap.org:8080?a=c&b=d&b=e')
+      expect(url).toBe('//opsmap.org:8080/visit?a=c&b=d&b=e')
     })
   })
 })

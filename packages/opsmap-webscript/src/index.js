@@ -1,41 +1,46 @@
 // @flow
 import domready from 'domready'
-import visit from './visit'
+import touch from './touch'
 
 function getConfig() {
-  let scenes = null
+  const metaTags = document.querySelectorAll('meta')
 
-  const metaTags = document.getElementByTags('meta')
+  let scenes = null
+  let host = null
 
   metaTags.forEach((metaTag) => {
     const name = metaTag.getAttribute('name')
+    const content = metaTag.getAttribute('content')
 
-    if (name !== 'opsmap-scenes') {
+    if (!content) {
       return
     }
 
-    const content = metaTag.getAttribute('content')
-
-    if (content) {
+    if (name === 'opsmap-scenes') {
       scenes = content.split(',')
+    } else if (name === 'opsmap-host') {
+      host = content
     }
   })
 
   return {
     scenes,
+    host,
   }
-}
-
-function init() {
-
 }
 
 function main() {
   domready(() => {
     const config = getConfig()
+    const { scenes } = config
 
-    init(config)
-    visit(config)
+    if (typeof config.host !== 'string') {
+      return
+    }
+
+    touch(config, {
+      scenes,
+    })
   })
 }
 

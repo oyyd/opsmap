@@ -2,13 +2,13 @@
 import qs from 'querystring'
 
 type TouchConfigType = {
-  hostname: string,
-  port: string,
+  host: string,
 }
 
-export function getURL(config, data) {
-  const { hostname, port } = config
-  const target = `//${hostname}:${port}?${qs.stringify(data)}`
+export function getURL(config: TouchConfigType, data: any) {
+  const { host } = config
+
+  const target = `//${host}/visit?${qs.stringify(data)}`
 
   return target
 }
