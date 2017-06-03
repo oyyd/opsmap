@@ -14,3 +14,4 @@ IE9
   - auto script
   - api
 - lightweight
+- (dev) simulate visiting

@@ -34,7 +34,7 @@ function main() {
     const config = getConfig()
     const { scenes } = config
 
-    if (typeof config.host !== 'string') {
+    if (config.host === null) {
       return
     }
 

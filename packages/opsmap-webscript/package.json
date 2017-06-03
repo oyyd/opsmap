@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "simulator": "http-server -p 8889 .",
     "dev": "webpack -w --config ./webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
-    "test:watch": "jest -w"
+    "test:watch": "jest -w",
+    "flow": "flow"
   },
   "author": "oyyd <oyydoibh@gmail.com>",
   "license": "MIT",
@@ -31,7 +33,10 @@
     "eslint-plugin-react": "^6.10.3",
     "flow-bin": "^0.45.0",
     "jest": "^20.0.4",
+    "prop-types": "^15.5.10",
     "querystring": "^0.2.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "regenerator-runtime": "^0.10.5",
     "webpack": "^2.5.1",
     "whatwg-fetch": "^2.0.3"

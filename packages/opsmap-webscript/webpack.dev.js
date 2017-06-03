@@ -5,6 +5,7 @@ const relative = p => path.resolve(__dirname, p)
 module.exports = {
   devtool: 'inline-source-map',
   entry: {
+    simulator: relative('./src/dev/simulator'),
     index: [
       'whatwg-fetch',
       relative('./src/index.js'),
