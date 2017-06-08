@@ -22,10 +22,13 @@ class Simulator extends Component {
     const tmpl = createIframeTmpl({ host, scenes })
 
     const iframe = document.createElement('iframe')
-    iframe.innerHTML = tmpl
 
     container.innerHTML = ''
+
     container.appendChild(iframe)
+
+    iframe.contentDocument.write(tmpl)
+    iframe.contentDocument.close()
   }
 
   render() {
@@ -50,6 +53,7 @@ class Simulator extends Component {
         <button onClick={trigger}>trigger</button>
         <div
           ref={container => (this.refers.container = container)}
+          style={{ display: 'none' }}
         />
       </div>
     )
